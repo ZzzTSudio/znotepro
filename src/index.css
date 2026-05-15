@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 12% 13%;
+    --card: 210 17% 98%;
+    --card-foreground: 210 12% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 12% 13%;
+    --primary: 142 55% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 17% 98%;
+    --secondary-foreground: 210 12% 13%;
+    --muted: 210 17% 96%;
+    --muted-foreground: 215 8% 42%;
+    --accent: 210 17% 96%;
+    --accent-foreground: 210 12% 13%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 18% 87%;
+    --input: 210 18% 87%;
+    --ring: 142 55% 35%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden;
+  }
+}
+
+.ProseMirror {
+  outline: none;
+}
+
+.markdown-rich-editor {
+  min-height: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+  color: #24292f;
+  font-size: 15px;
+  line-height: 1.75;
+  user-select: text;
+}
+
+.markdown-rich-editor > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rich-editor h1,
+.markdown-rich-editor h2,
+.markdown-rich-editor h3,
+.markdown-rich-editor h4,
+.markdown-rich-editor h5,
+.markdown-rich-editor h6 {
+  color: #1f2328;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 1.45em 0 0.65em;
+}
+
+.markdown-rich-editor h1 {
+  font-size: 2em;
+  padding-bottom: 0.28em;
+  border-bottom: 1px solid #d8dee4;
+}
+
+.markdown-rich-editor h2 {
+  font-size: 1.55em;
+  padding-bottom: 0.22em;
+  border-bottom: 1px solid #eaeef2;
+}
+
+.markdown-rich-editor h3 {
+  font-size: 1.25em;
+}
+
+.markdown-rich-editor h4 {
+  font-size: 1.08em;
+}
+
+.markdown-rich-editor p,
+.markdown-rich-editor blockquote,
+.markdown-rich-editor ul,
+.markdown-rich-editor ol,
+.markdown-rich-editor pre {
+  margin: 0.85em 0;
+}
+
+.markdown-rich-editor ul,
+.markdown-rich-editor ol {
+  padding-left: 1.7em;
+}
+
+.markdown-rich-editor ul {
+  list-style: disc;
+}
+
+.markdown-rich-editor ol {
+  list-style: decimal;
+}
+
+.markdown-rich-editor li + li {
+  margin-top: 0.25em;
+}
+
+.markdown-rich-editor blockquote {
+  border-left: 4px solid #d0d7de;
+  color: #57606a;
+  padding: 0.1em 0 0.1em 1em;
+}
+
+.markdown-rich-editor a {
+  color: #0969da;
+  text-decoration: none;
+}
+
+.markdown-rich-editor a:hover {
+  text-decoration: underline;
+}
+
+.markdown-rich-editor code {
+  background: #f6f8fa;
+  border: 1px solid #eaeef2;
+  border-radius: 4px;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.88em;
+  padding: 0.15em 0.35em;
+}
+
+.markdown-rich-editor pre {
+  background: #f6f8fa;
+  border: 1px solid #d8dee4;
+  border-radius: 6px;
+  overflow-x: auto;
+  padding: 14px 16px;
+}
+
+.markdown-rich-editor pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.markdown-rich-editor hr {
+  border: 0;
+  border-top: 1px solid #d8dee4;
+  margin: 2em 0;
+}
+
+.znote-sidebar,
+.znote-sidebar * {
+  -webkit-user-drag: none;
+}
+
+.znote-sidebar {
+  user-select: none;
+}
+
+.markdown-preview {
+  min-height: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+  color: #24292f;
+  font-size: 15px;
+  line-height: 1.75;
+  user-select: text;
+}
+
+.markdown-preview > :first-child {
+  margin-top: 0;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  color: #1f2328;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 1.45em 0 0.65em;
+}
+
+.markdown-preview h1 {
+  font-size: 2em;
+  padding-bottom: 0.28em;
+  border-bottom: 1px solid #d8dee4;
+}
+
+.markdown-preview h2 {
+  font-size: 1.55em;
+  padding-bottom: 0.22em;
+  border-bottom: 1px solid #eaeef2;
+}
+
+.markdown-preview h3 {
+  font-size: 1.25em;
+}
+
+.markdown-preview h4 {
+  font-size: 1.08em;
+}
+
+.markdown-preview p,
+.markdown-preview blockquote,
+.markdown-preview ul,
+.markdown-preview ol,
+.markdown-preview table,
+.markdown-preview pre {
+  margin: 0.85em 0;
+}
+
+.markdown-preview ul,
+.markdown-preview ol {
+  padding-left: 1.7em;
+}
+
+.markdown-preview ul {
+  list-style: disc;
+}
+
+.markdown-preview ol {
+  list-style: decimal;
+}
+
+.markdown-preview li + li {
+  margin-top: 0.25em;
+}
+
+.markdown-preview blockquote {
+  border-left: 4px solid #d0d7de;
+  color: #57606a;
+  padding: 0.1em 0 0.1em 1em;
+}
+
+.markdown-preview a {
+  color: #0969da;
+  text-decoration: none;
+}
+
+.markdown-preview a:hover {
+  text-decoration: underline;
+}
+
+.markdown-preview code {
+  background: #f6f8fa;
+  border: 1px solid #eaeef2;
+  border-radius: 4px;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.88em;
+  padding: 0.15em 0.35em;
+}
+
+.markdown-preview pre {
+  background: #f6f8fa;
+  border: 1px solid #d8dee4;
+  border-radius: 6px;
+  overflow-x: auto;
+  padding: 14px 16px;
+}
+
+.markdown-preview pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.markdown-preview table {
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+  border: 1px solid #d0d7de;
+  padding: 6px 10px;
+}
+
+.markdown-preview th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+
+.markdown-preview img {
+  max-width: 100%;
+}
+
+.markdown-preview hr {
+  border: 0;
+  border-top: 1px solid #d8dee4;
+  margin: 2em 0;
+}

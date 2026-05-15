@@ -1,0 +1,53 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>znote app icon</title>
+  <defs>
+    <linearGradient id="bg" x1="158" y1="112" x2="892" y2="917" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0E7C86"/>
+      <stop offset="0.48" stop-color="#1B5F9E"/>
+      <stop offset="1" stop-color="#45227C"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="308" y1="226" x2="741" y2="782" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EAF4F6"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="672" y1="236" x2="770" y2="352" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#BFE9E5"/>
+      <stop offset="1" stop-color="#62C6BE"/>
+    </linearGradient>
+    <linearGradient id="zstroke" x1="310" y1="356" x2="721" y2="682" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#17345C"/>
+      <stop offset="0.55" stop-color="#0C6C77"/>
+      <stop offset="1" stop-color="#E85D57"/>
+    </linearGradient>
+    <filter id="shadow" x="158" y="145" width="708" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="34"/>
+      <feGaussianBlur stdDeviation="35"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.035 0 0 0 0 0.071 0 0 0 0 0.12 0 0 0 0.28 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+    <clipPath id="iconClip">
+      <rect width="1024" height="1024" rx="224" fill="#fff"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#iconClip)">
+    <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
+    <circle cx="218" cy="214" r="168" fill="#50D6C9" fill-opacity="0.18"/>
+    <circle cx="834" cy="846" r="230" fill="#FF6B5F" fill-opacity="0.16"/>
+    <path d="M136 676C292 548 421 641 536 526C650 413 783 447 889 324V1024H136V676Z" fill="#061E35" fill-opacity="0.14"/>
+
+    <g filter="url(#shadow)">
+      <path d="M257 245C257 218.49 278.49 197 305 197H666.09C678.82 197 691.03 202.057 700.03 211.059L793.94 304.97C802.94 313.971 808 326.181 808 338.912V779C808 805.51 786.51 827 760 827H305C278.49 827 257 805.51 257 779V245Z" fill="url(#paper)"/>
+      <path d="M676 200V314C676 340.51 697.49 362 724 362H805L676 200Z" fill="url(#fold)"/>
+      <path d="M676 200V314C676 340.51 697.49 362 724 362H805" stroke="#D7F2F0" stroke-width="14" stroke-linejoin="round"/>
+    </g>
+
+    <path d="M365 361H671C685.912 361 694.476 377.956 685.596 389.938L378 682H674" stroke="url(#zstroke)" stroke-width="86" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M346 724H682" stroke="#123B55" stroke-width="36" stroke-linecap="round" opacity="0.18"/>
+    <path d="M384 259H526" stroke="#0E7C86" stroke-width="28" stroke-linecap="round" opacity="0.28"/>
+  </g>
+</svg>
