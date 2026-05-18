@@ -29,3 +29,22 @@ export interface SearchResult {
   matches: MatchContext[];
   boost_reasons: string[];
 }
+
+export interface ModelConfigView {
+  api_url: string;
+  model: string;
+  has_api_key: boolean;
+}
+
+export interface StyleTemplate {
+  id: string;
+  name: string;
+  description: string;
+  css_file: string;
+  html_file: string;
+}
+
+export interface ConvertResult {
+  output_path: string;
+  output_name: string;
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日系清新奶油 - 样式展示</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Roboto:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+
+:root { --bg:#fefcf9; --surface:#fffbf5; --border:#ede4d8; --text:#4a4238; --text2:#a89f91; --accent:#e88d67; --accent2:#7db9a8; }
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans SC','Hiragino Sans',sans-serif;line-height:1.8;}
+.hero{background:linear-gradient(180deg,#fff8f0 0%,var(--bg) 100%);padding:70px 40px 55px;border-bottom:1px solid var(--border);position:relative;}
+.hero::before{content:'';position:absolute;top:-20%;right:-10%;width:350px;height:350px;background:radial-gradient(circle,rgba(232,141,103,0.12) 0%,transparent 70%);pointer-events:none;}
+.hero h1{font-size:38px;font-weight:700;letter-spacing:2px;margin-bottom:16px;color:var(--text);line-height:1.3;font-family:'Noto Serif SC','Songti SC',serif;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(232,141,103,0.1);border:1px solid rgba(232,141,103,0.3);border-radius:100px;font-size:12px;color:var(--accent);margin-bottom:16px;font-weight:600;}
+.hero-desc{color:var(--text2);font-size:16px;max-width:560px;line-height:1.8;}
+.hero-meta{margin-top:24px;}
+.hero-meta-item{color:var(--text2);font-size:13px;}
+.hero-meta-icon{background:var(--surface);border:1px solid var(--border);color:var(--text2);border-radius:50%;width:28px;height:28px;font-size:12px;}
+.content{max-width:800px;margin:0 auto;padding:48px 40px;}
+h2{font-size:24px;font-weight:700;letter-spacing:1px;margin:48px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--border);color:var(--text);display:flex;align-items:center;gap:10px;font-family:'Noto Serif SC','Songti SC',serif;}
+.section-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(232,141,103,0.3);}
+.code-block{background:var(--surface);border-radius:16px;margin:20px 0;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 12px rgba(74,66,56,0.04);}
+.code-header{padding:10px 18px;background:#faf5ee;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.code-dot{width:12px;height:12px;border-radius:50%;opacity:0.6;}
+.code-dot.red{background:#e88d67;}.code-dot.yellow{background:#e8c547;}.code-dot.green{background:#7db9a8;}
+.code-label{font-size:11px;color:var(--text2);font-family:'Noto Sans Mono',monospace;}
+.code-block pre{padding:20px 24px;margin:0;font-size:13px;line-height:1.8;color:var(--text);font-family:'Noto Sans Mono',monospace;overflow-x:auto;}
+code{font-family:'Noto Sans Mono',monospace;background:#faf5ee;padding:2px 8px;border-radius:8px;font-size:0.88em;color:var(--accent);border:1px solid var(--border);}
+.table-wrap{border:1px solid var(--border);border-radius:16px;overflow:hidden;margin:20px 0;background:#fff;box-shadow:0 2px 12px rgba(74,66,56,0.04);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th{padding:14px 20px;text-align:left;font-size:11px;color:var(--text2);border-bottom:1px solid var(--border);font-weight:700;text-transform:none;letter-spacing:0.5px;background:var(--surface);}
+td{padding:14px 20px;border-bottom:1px solid var(--border);color:var(--text);}
+tbody tr:hover{background:var(--surface);}
+.tag{padding:4px 14px;background:var(--accent);color:#fff;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:0.5px;}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:24px 0;}
+.info-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:0 2px 12px rgba(74,66,56,0.04);transition:all 0.3s;}
+.info-card:hover{box-shadow:0 8px 24px rgba(74,66,56,0.08);transform:translateY(-3px);}
+.info-card-title{font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:700;}
+.info-card-body{font-size:14px;line-height:1.8;color:var(--text);}
+.callout{padding:20px 24px;background:var(--surface);border-radius:16px;margin:20px 0;font-size:14px;border-left:4px solid var(--accent);color:var(--text);}
+.callout-note{border-left-color:var(--accent2);}
+.section-divider{height:1px;background:repeating-linear-gradient(90deg,var(--border),var(--border) 6px,transparent 6px,transparent 12px);margin:48px 0;}
+.mermaid-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;padding:28px;margin:24px 0;box-shadow:0 2px 12px rgba(74,66,56,0.04);}
+.footer{padding:32px;text-align:center;color:var(--text2);font-size:13px;margin-top:40px;border-top:1px solid var(--border);}
+.back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;opacity:0;transition:all 0.3s;box-shadow:0 4px 16px rgba(232,141,103,0.3);font-size:16px;}
+.back-to-top.visible{opacity:1;}
+.back-to-top:hover{background:var(--text);}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main class="main">
+            <header class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge"><span class="hero-badge-dot"></span><span>日系清新奶油</span></div>
+                    <h1>日系清新奶油</h1>
+                    <p class="hero-desc">日系设计风格，奶油色背景，温暖配色，柔和圆润</p>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item"><span class="hero-meta-icon">&#9632;</span><span>HTML/CSS</span></div>
+                        <div class="hero-meta-item"><span class="hero-meta-icon">&#9670;</span><span>文档模板</span></div>
+                        <div class="hero-meta-item"><span class="hero-meta-icon">&#9679;</span><span>响应式</span></div>
+                    </div>
+                </div>
+            </header>
+            <div class="content">
+                <section>
+                    <h2><span class="section-num">1</span>排版与文字</h2>
+                    <p>这是一段正文示例。每种风格都有独特的字体、行高和色彩方案，适合不同的文档场景和阅读偏好。</p>
+                    <p>行内代码 <code>example_function()</code> 自动高亮，<span class="tag">标签</span> 也随主题变色。</p>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">2</span>代码块</h2>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-label">example.js</span>
+                        </div>
+                        <pre><code>function helloStyle() {
+  // 每种风格都有独特的代码块样式
+  console.log("Hello, 9 styles!");
+  return true;
+}</code></pre>
+                    </div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">3</span>表格</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>风格</th><th>主色</th><th>适用场景</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="tag">GitHub</span></td><td>#58a6ff</td><td>开发者文档</td></tr>
+                                <tr><td><span class="tag">Apple</span></td><td>#0071e3</td><td>产品介绍</td></tr>
+                                <tr><td><span class="tag">Stripe</span></td><td>#635bff</td><td>商务报告</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">4</span>信息卡片</h2>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-title">卡片 A</div>
+                            <div class="info-card-body">信息卡片用于展示并排的要点内容，支持悬停交互。</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-title">卡片 B</div>
+                            <div class="info-card-body">每张卡片独立展示一个主题，自适应网格布局。</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-title">卡片 C</div>
+                            <div class="info-card-body">支持 <code>inline code</code> 和自定义内容。</div>
+                        </div>
+                    </div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">5</span>提示框</h2>
+                    <div class="callout"><strong>提示：</strong>这是一个普通的提示框，用于强调重要信息。</div>
+                    <div class="callout callout-note"><strong>备注：</strong>这是一个备注提示框，用于补充说明。</div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">6</span>流程图</h2>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid">
+flowchart TD
+    A["开始"] --> B{"判断?"}
+    B -- 是 --> C["处理 A"]
+    B -- 否 --> D["处理 B"]
+    C --> E["结束"]
+    D --> E
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <footer class="footer">
+                <p>日系清新奶油 - 文档样式展示</p>
+            </footer>
+        </main>
+    </div>
+    <a href="#" class="back-to-top" id="backToTop" title="返回顶部">&#8593;</a>
+    <script>
+        if(typeof mermaid!=='undefined')mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:{primaryColor:'#fafafa',primaryTextColor:'#333',primaryBorderColor:'#999',lineColor:'#666',fontFamily:'Inter, Noto Sans SC, sans-serif'},flowchart:{useMaxWidth:true,htmlLabels:true,curve:'basis'}});
+        const b=document.getElementById('backToTop');
+        if(b){window.addEventListener('scroll',()=>{window.scrollY>500?b.classList.add('visible'):b.classList.remove('visible');});
+        b.addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});}
+    </script>
+</body>
+</html>

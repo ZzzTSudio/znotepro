@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档样式库 - Document Style Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --surface: #f5f5f7;
+            --border: #e5e5ea;
+            --text: #1d1d1f;
+            --text2: #86868b;
+            --accent: #7c3aed;
+            --accent2: #06b6d4;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 60px 40px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            color: var(--text2);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 24px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-num {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        /* Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        /* Card */
+        .card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            border-color: rgba(124,58,237,0.2);
+        }
+        .card-preview {
+            height: 140px;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        .card-body {
+            padding: 20px 24px 24px;
+        }
+        .card-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .card-desc {
+            font-size: 13px;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .card-meta {
+            display: flex;
+            gap: 12px;
+        }
+        .card-tag {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .card-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text2);
+            font-size: 13px;
+        }
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 28px; }
+            .grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <h1>文档样式库</h1>
+        <p>10 种精心设计的文档 CSS 样式，一键套用，即开即用</p>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-num">10</div>
+                <div class="stat-label">Styles</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">6</div>
+                <div class="stat-label">Components</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">1</div>
+                <div class="stat-label">CSS File</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- Card 1: OpenAI -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #fafafa 0%, #f5f5f7 50%, #e0e7ff 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(124,58,237,0.15);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(124,58,237,0.08);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border-radius:8px;"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(0,0,0,0.06);border-radius:3px;"></div>
+                    <div style="position:absolute;top:68px;left:16px;right:20%;height:6px;background:rgba(0,0,0,0.04);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#f8f9fa;border-radius:6px;border:1px solid rgba(0,0,0,0.04);"></div>
+                    <div class="card-bar" style="background: linear-gradient(90deg, #7c3aed, #06b6d4);"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">OpenAI 紫青渐变</div>
+                    <div class="card-desc">原版仿 OpenAI 风格，紫色渐变编号，现代 Hero 头部，浅色代码块</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(124,58,237,0.1); color: #7c3aed;">Light</span>
+                        <span class="card-tag" style="background: rgba(6,182,212,0.1); color: #06b6d4;">Modern</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-github-dark.html" class="btn btn-primary">预览效果</a>
+                        <a href="../doc-template/doc-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: GitHub Dark -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(88,166,255,0.15);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(240,246,252,0.08);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:#238636;border-radius:50%;"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(240,246,252,0.06);border-radius:3px;"></div>
+                    <div style="position:absolute;top:68px;left:16px;right:20%;height:6px;background:rgba(240,246,252,0.04);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#1e2530;border-radius:6px;border:1px solid #30363d;"></div>
+                    <div class="card-bar" style="background: #58a6ff;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">GitHub Dark 暗色科技</div>
+                    <div class="card-desc">仿 GitHub 暗色主题，深灰底色，蓝色强调，适合开发者文档</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(13,17,23,0.1); color: #24292f;">Dark</span>
+                        <span class="card-tag" style="background: rgba(88,166,255,0.1); color: #0969da;">Dev</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-github-dark.html" class="btn btn-primary">预览效果</a>
+                        <a href="github-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Apple -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #ffffff 0%, #fbfbfd 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(0,113,227,0.1);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(0,0,0,0.04);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:50%;transform:translateX(-50%);width:32px;height:32px;background:#0071e3;border-radius:50%;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#f5f5f7;border-radius:12px;"></div>
+                    <div class="card-bar" style="background: #0071e3;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">Apple 极简白</div>
+                    <div class="card-desc">苹果官网风格，极致留白，隐藏代码头部，大字体标题</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(0,113,227,0.1); color: #0071e3;">Light</span>
+                        <span class="card-tag" style="background: rgba(0,0,0,0.05); color: #666;">Minimal</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-apple-minimal.html" class="btn btn-primary">预览效果</a>
+                        <a href="apple-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Material -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(255,255,255,0.2);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:rgba(255,255,255,0.9);border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.2);"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(255,255,255,0.2);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                    <div class="card-bar" style="background: #fff;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">Google Material</div>
+                    <div class="card-desc">Material Design 风格，彩色渐变头部，圆角阴影卡片</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(26,115,232,0.1); color: #1a73e8;">Colorful</span>
+                        <span class="card-tag" style="background: rgba(52,168,83,0.1); color: #137333;">Shadow</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-google-material.html" class="btn btn-primary">预览效果</a>
+                        <a href="material-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Stripe -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #0a2540 0%, #00d4aa 150%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(255,255,255,0.15);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:#635bff;border-radius:8px;"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(255,255,255,0.12);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);"></div>
+                    <div class="card-bar" style="background: #635bff;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">Stripe 商务深蓝</div>
+                    <div class="card-desc">Stripe 风格，深蓝渐变头部，精致排版，商务优雅</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(99,91,255,0.1); color: #635bff;">Business</span>
+                        <span class="card-tag" style="background: rgba(10,37,64,0.1); color: #0a2540;">Elegant</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-stripe-elegant.html" class="btn btn-primary">预览效果</a>
+                        <a href="stripe-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Notion -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #ffffff 0%, #f7f6f3 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(225,98,89,0.15);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(55,53,47,0.06);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:#f7f6f3;border:1px solid #e9e9e7;border-radius:4px;"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(55,53,47,0.05);border-radius:2px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#f7f6f3;border-radius:4px;border:1px solid #e9e9e7;"></div>
+                    <div class="card-bar" style="background: #e16259;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">Notion 温暖灰</div>
+                    <div class="card-desc">仿 Notion 风格，暖灰底色，红色强调，亲和自然</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(225,98,89,0.1); color: #e16259;">Warm</span>
+                        <span class="card-tag" style="background: rgba(55,53,47,0.05); color: #37352f;">Wiki</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-notion-warm.html" class="btn btn-primary">预览效果</a>
+                        <a href="notion-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7: Tailwind -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #38bdf8 0%, #c084fc 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(255,255,255,0.25);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:rgba(255,255,255,0.9);border-radius:12px;"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(255,255,255,0.2);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#fff;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,0.1);"></div>
+                    <div class="card-bar" style="background: #fff;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">Tailwind 现代多彩</div>
+                    <div class="card-desc">Tailwind 官网风格，天空蓝渐变，活泼现代，多彩标签</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(14,165,233,0.1); color: #0ea5e9;">Playful</span>
+                        <span class="card-tag" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">Colorful</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-tailwind-playful.html" class="btn btn-primary">预览效果</a>
+                        <a href="tailwind-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8: Vercel -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #000000 0%, #111111 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(0,229,255,0.15);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:#111;border:1px solid #333;border-radius:8px;"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#111;border-radius:8px;border:1px solid #333;"></div>
+                    <div class="card-bar" style="background: linear-gradient(90deg, transparent, #00e5ff, transparent);"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">Vercel 暗黑科技</div>
+                    <div class="card-desc">Vercel 风格，纯黑背景，荧光文字，赛博朋克感</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(0,0,0,0.1); color: #333;">Dark</span>
+                        <span class="card-tag" style="background: rgba(0,229,255,0.1); color: #0891b2;">Cyber</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-vercel-cyber.html" class="btn btn-primary">预览效果</a>
+                        <a href="vercel-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 9: Fluent -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #e8ecf1 0%, #f3f6f8 50%, rgba(0,120,212,0.08) 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(0,120,212,0.1);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(0,0,0,0.03);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.06);border-radius:8px;backdrop-filter:blur(4px);"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(0,0,0,0.04);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:rgba(255,255,255,0.85);border-radius:12px;border:1px solid rgba(0,0,0,0.06);backdrop-filter:blur(10px);"></div>
+                    <div class="card-bar" style="background: #0078d4;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">Microsoft Fluent</div>
+                    <div class="card-desc">微软 Fluent 风格，毛玻璃效果，光影层次，现代精致</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(0,120,212,0.1); color: #0078d4;">Glass</span>
+                        <span class="card-tag" style="background: rgba(0,178,148,0.1); color: #00b294;">Fluent</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-fluent-glass.html" class="btn btn-primary">预览效果</a>
+                        <a href="fluent-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 10: Japanese -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #fefcf9 0%, #fff8f0 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(232,141,103,0.15);border-radius:4px;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(74,66,56,0.05);border-radius:3px;"></div>
+                    <div style="position:absolute;top:48px;left:16px;width:24px;height:24px;background:#e88d67;border-radius:50%;box-shadow:0 2px 8px rgba(232,141,103,0.3);"></div>
+                    <div style="position:absolute;top:52px;left:48px;right:30%;height:6px;background:rgba(74,66,56,0.04);border-radius:3px;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#fff;border-radius:20px;border:1px solid #ede4d8;"></div>
+                    <div class="card-bar" style="background: #e88d67;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">日系清新奶油</div>
+                    <div class="card-desc">日系设计风格，奶油色背景，衬线标题，圆润柔和</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(232,141,103,0.1); color: #e88d67;">Warm</span>
+                        <span class="card-tag" style="background: rgba(125,185,168,0.1); color: #7db9a8;">Soft</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-japanese-cream.html" class="btn btn-primary">预览效果</a>
+                        <a href="japanese-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 11: Newspaper -->
+            <div class="card">
+                <div class="card-preview" style="background: linear-gradient(135deg, #fafaf8 0%, #ffffff 100%);">
+                    <div style="position:absolute;top:16px;left:16px;right:16px;height:8px;background:rgba(139,0,0,0.1);border-radius:0;"></div>
+                    <div style="position:absolute;top:32px;left:16px;right:40%;height:6px;background:rgba(0,0,0,0.05);border-radius:0;"></div>
+                    <div style="position:absolute;top:48px;left:50%;transform:translateX(-50%);width:24px;height:24px;background:var(--text);border-radius:0;"></div>
+                    <div style="position:absolute;top:88px;left:16px;right:16px;height:30px;background:#fff;border:1px solid #d4d0c8;border-radius:0;box-shadow:2px 2px 0 rgba(0,0,0,0.05);"></div>
+                    <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--text2);letter-spacing:4px;">* * *</div>
+                    <div class="card-bar" style="background: #1a1a1a;"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name">报刊经典衬线</div>
+                    <div class="card-desc">经典报刊风格，衬线字体，黑色粗边框，学术严肃</div>
+                    <div class="card-meta">
+                        <span class="card-tag" style="background: rgba(139,0,0,0.1); color: #8b0000;">Classic</span>
+                        <span class="card-tag" style="background: rgba(0,0,0,0.05); color: #666;">Academic</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="style-newspaper-classic.html" class="btn btn-primary">预览效果</a>
+                        <a href="newspaper-style.css" class="btn btn-secondary" download>下载 CSS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>10 种文档样式，即开即用 &middot; 基于 HTML + CSS 构建</p>
+    </footer>
+</body>
+</html>

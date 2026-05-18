@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vercel 暗黑科技 - 样式展示</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Roboto:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+
+:root { --bg:#000; --surface:#111; --border:#333; --text:#fff; --text2:#888; --accent:#fff; --glow:#00e5ff; }
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.75;}
+.hero{background:var(--bg);padding:80px 40px 60px;border-bottom:1px solid var(--border);position:relative;}
+.hero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--glow),transparent);}
+.hero h1{font-size:44px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;color:#fff;line-height:1.1;text-shadow:0 0 40px rgba(0,229,255,0.3);}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--surface);border:1px solid var(--border);border-radius:100px;font-size:12px;color:var(--text2);margin-bottom:20px;}
+.hero-badge-dot{width:6px;height:6px;background:var(--glow);border-radius:50%;box-shadow:0 0 8px var(--glow);}
+.hero-desc{color:var(--text2);font-size:17px;max-width:560px;line-height:1.7;}
+.hero-meta{margin-top:28px;}
+.hero-meta-item{color:var(--text2);font-size:13px;}
+.hero-meta-icon{background:var(--surface);border:1px solid var(--border);color:var(--text2);border-radius:8px;width:28px;height:28px;font-size:12px;}
+.content{max-width:900px;margin:0 auto;padding:48px 40px;}
+h2{font-size:28px;font-weight:700;letter-spacing:-1px;margin:48px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);color:#fff;display:flex;align-items:center;gap:10px;}
+.section-num{width:30px;height:30px;border-radius:8px;background:var(--surface);border:1px solid var(--border);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.code-block{background:var(--surface);border-radius:8px;margin:20px 0;overflow:hidden;border:1px solid var(--border);}
+.code-header{padding:10px 16px;background:#0a0a0a;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.code-dot{width:12px;height:12px;border-radius:50%;}
+.code-dot.red{background:#ff5555;}.code-dot.yellow{background:#ffcc00;}.code-dot.green{background:#50fa7b;}
+.code-label{font-size:11px;color:var(--text2);font-family:'JetBrains Mono',monospace;}
+.code-block pre{padding:20px 24px;margin:0;font-size:13px;line-height:1.7;color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:auto;background:var(--surface);}
+code{font-family:'JetBrains Mono',monospace;background:var(--surface);padding:2px 8px;border-radius:4px;font-size:0.88em;color:var(--glow);border:1px solid var(--border);}
+.table-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:20px 0;background:var(--bg);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th{padding:14px 20px;text-align:left;font-size:11px;color:var(--text2);border-bottom:1px solid var(--border);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;background:var(--surface);}
+td{padding:14px 20px;border-bottom:1px solid var(--border);color:var(--text);}
+tbody tr:hover{background:var(--surface);}
+.tag{padding:3px 10px;background:var(--surface);color:var(--glow);border-radius:4px;font-size:12px;font-weight:600;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:24px 0;}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;transition:all 0.3s;}
+.info-card:hover{border-color:#555;box-shadow:0 0 20px rgba(0,229,255,0.05);}
+.info-card-title{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:600;}
+.info-card-body{font-size:14px;line-height:1.7;color:var(--text);}
+.callout{padding:20px 24px;background:var(--surface);border-radius:8px;margin:20px 0;font-size:14px;border:1px solid var(--border);color:var(--text);position:relative;overflow:hidden;}
+.callout::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--glow);}
+.callout-note::before{background:#bd93f9;}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:48px 0;}
+.mermaid-wrap{background:var(--surface);border-radius:8px;padding:28px;margin:24px 0;border:1px solid var(--border);}
+.footer{padding:32px;text-align:center;color:var(--text2);font-size:13px;margin-top:40px;border-top:1px solid var(--border);}
+.back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text);opacity:0;transition:all 0.3s;}
+.back-to-top.visible{opacity:1;}
+.back-to-top:hover{border-color:var(--glow);color:var(--glow);box-shadow:0 0 20px rgba(0,229,255,0.1);}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main class="main">
+            <header class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge"><span class="hero-badge-dot"></span><span>Vercel 暗黑科技</span></div>
+                    <h1>Vercel 暗黑科技</h1>
+                    <p class="hero-desc">Vercel风格，纯黑背景，荧光文字，赛博朋克感</p>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item"><span class="hero-meta-icon">&#9632;</span><span>HTML/CSS</span></div>
+                        <div class="hero-meta-item"><span class="hero-meta-icon">&#9670;</span><span>文档模板</span></div>
+                        <div class="hero-meta-item"><span class="hero-meta-icon">&#9679;</span><span>响应式</span></div>
+                    </div>
+                </div>
+            </header>
+            <div class="content">
+                <section>
+                    <h2><span class="section-num">1</span>排版与文字</h2>
+                    <p>这是一段正文示例。每种风格都有独特的字体、行高和色彩方案，适合不同的文档场景和阅读偏好。</p>
+                    <p>行内代码 <code>example_function()</code> 自动高亮，<span class="tag">标签</span> 也随主题变色。</p>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">2</span>代码块</h2>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <span class="code-label">example.js</span>
+                        </div>
+                        <pre><code>function helloStyle() {
+  // 每种风格都有独特的代码块样式
+  console.log("Hello, 9 styles!");
+  return true;
+}</code></pre>
+                    </div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">3</span>表格</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>风格</th><th>主色</th><th>适用场景</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="tag">GitHub</span></td><td>#58a6ff</td><td>开发者文档</td></tr>
+                                <tr><td><span class="tag">Apple</span></td><td>#0071e3</td><td>产品介绍</td></tr>
+                                <tr><td><span class="tag">Stripe</span></td><td>#635bff</td><td>商务报告</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">4</span>信息卡片</h2>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-title">卡片 A</div>
+                            <div class="info-card-body">信息卡片用于展示并排的要点内容，支持悬停交互。</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-title">卡片 B</div>
+                            <div class="info-card-body">每张卡片独立展示一个主题，自适应网格布局。</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-title">卡片 C</div>
+                            <div class="info-card-body">支持 <code>inline code</code> 和自定义内容。</div>
+                        </div>
+                    </div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">5</span>提示框</h2>
+                    <div class="callout"><strong>提示：</strong>这是一个普通的提示框，用于强调重要信息。</div>
+                    <div class="callout callout-note"><strong>备注：</strong>这是一个备注提示框，用于补充说明。</div>
+                </section>
+                <div class="section-divider"></div>
+                <section>
+                    <h2><span class="section-num">6</span>流程图</h2>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid">
+flowchart TD
+    A["开始"] --> B{"判断?"}
+    B -- 是 --> C["处理 A"]
+    B -- 否 --> D["处理 B"]
+    C --> E["结束"]
+    D --> E
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <footer class="footer">
+                <p>Vercel 暗黑科技 - 文档样式展示</p>
+            </footer>
+        </main>
+    </div>
+    <a href="#" class="back-to-top" id="backToTop" title="返回顶部">&#8593;</a>
+    <script>
+        if(typeof mermaid!=='undefined')mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:{primaryColor:'#fafafa',primaryTextColor:'#333',primaryBorderColor:'#999',lineColor:'#666',fontFamily:'Inter, Noto Sans SC, sans-serif'},flowchart:{useMaxWidth:true,htmlLabels:true,curve:'basis'}});
+        const b=document.getElementById('backToTop');
+        if(b){window.addEventListener('scroll',()=>{window.scrollY>500?b.classList.add('visible'):b.classList.remove('visible');});
+        b.addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});}
+    </script>
+</body>
+</html>

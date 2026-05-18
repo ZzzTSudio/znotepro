@@ -70,8 +70,6 @@ set "RELEASE_DIR=src-tauri\target\release"
 set "BUNDLE_DIR=%RELEASE_DIR%\bundle"
 
 if not exist "%RELEASE_DIR%" mkdir "%RELEASE_DIR%"
-if exist "cli\znote.js" copy /Y "cli\znote.js" "%RELEASE_DIR%\znote-cli.js" >nul
-if exist "cli\znote.cmd" copy /Y "cli\znote.cmd" "%RELEASE_DIR%\znote-cli.cmd" >nul
 if exist "README.md" copy /Y "README.md" "%RELEASE_DIR%\README.md" >nul
 if exist "部署文档.md" copy /Y "部署文档.md" "%RELEASE_DIR%\部署文档.md" >nul
 

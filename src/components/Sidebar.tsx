@@ -285,6 +285,7 @@ export default function Sidebar({
   onCreateFolder,
   onRename,
   onSearch,
+  onConvert,
 }: {
   notes: NoteInfo[];
   noteDir: string;
@@ -297,6 +298,7 @@ export default function Sidebar({
   onCreateFolder: (path: string) => void | Promise<void>;
   onRename: (oldPath: string, newPath: string) => void | Promise<void>;
   onSearch: (q: string) => void;
+  onConvert: (path: string) => void | Promise<void>;
 }) {
   const [search, setSearch] = useState("");
   const [menu, setMenu] = useState<MenuTarget | null>(null);
@@ -532,9 +534,9 @@ export default function Sidebar({
     const ext = extensionOf(node.path);
     const convertItem =
       ext === "html" || ext === "htm"
-        ? { label: "转markdown格式", onClick: () => undefined }
+        ? { label: "转 Markdown 格式", onClick: () => void onConvert(node.path) }
         : ext === "md" || ext === "markdown"
-          ? { label: "转html格式", onClick: () => undefined }
+          ? { label: "转 html 格式", onClick: () => void onConvert(node.path) }
           : null;
     return [
       { label: "新建文件", onClick: () => void createFile(parentPath(node.path)) },
@@ -542,7 +544,7 @@ export default function Sidebar({
       { label: "删除文件", danger: true, onClick: () => confirm(`删除 ${node.name}?`) && onDelete(node.path) },
       ...(convertItem ? [convertItem] : []),
     ];
-  }, [menu, notes]);
+  }, [menu, notes, onConvert]);
 
   return (
     <div

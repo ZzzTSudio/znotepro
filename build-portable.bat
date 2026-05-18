@@ -45,15 +45,12 @@ if exist "%PORTABLE_DIR%" rmdir /S /Q "%PORTABLE_DIR%"
 mkdir "%PORTABLE_DIR%"
 
 copy /Y "%RELEASE_DIR%\znote.exe" "%PORTABLE_DIR%\znote.exe" >nul
-copy /Y "cli\znote.js" "%PORTABLE_DIR%\znote-cli.js" >nul
-copy /Y "cli\znote.cmd" "%PORTABLE_DIR%\znote-cli.cmd" >nul
-copy /Y "README.md" "%PORTABLE_DIR%\README.md" >nul
-copy /Y "部署文档.md" "%PORTABLE_DIR%\部署文档.md" >nul
+if exist "README.md" copy /Y "README.md" "%PORTABLE_DIR%\README.md" >nul
+if exist "部署文档.md" copy /Y "部署文档.md" "%PORTABLE_DIR%\部署文档.md" >nul
 
 echo znote 便携版 > "%PORTABLE_DIR%\使用说明.txt"
 echo ========================== >> "%PORTABLE_DIR%\使用说明.txt"
 echo 双击 znote.exe 启动 GUI 笔记工具 >> "%PORTABLE_DIR%\使用说明.txt"
-echo 双击 znote-cli.cmd 使用命令行 >> "%PORTABLE_DIR%\使用说明.txt"
 echo. >> "%PORTABLE_DIR%\使用说明.txt"
 echo 系统要求： >> "%PORTABLE_DIR%\使用说明.txt"
 echo   - Windows 10/11 64位 >> "%PORTABLE_DIR%\使用说明.txt"

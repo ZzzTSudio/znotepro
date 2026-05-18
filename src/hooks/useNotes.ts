@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import type { NoteInfo, Tab, SearchResult } from "@/types/note";
+import type { ConvertResult, NoteInfo, SearchResult, Tab } from "@/types/note";
 
 export function useNotes() {
   const [notes, setNotes] = useState<NoteInfo[]>([]);
@@ -218,6 +218,19 @@ export function useNotes() {
     }
   }, []);
 
+  const convertNote = useCallback(
+    async (relativePath: string, styleId: string | null, overwrite: boolean) => {
+      const result: ConvertResult = await invoke("convert_note", {
+        relativePath,
+        styleId,
+        overwrite,
+      });
+      await loadNotes();
+      return result;
+    },
+    [loadNotes],
+  );
+
   return {
     notes,
     tabs,
@@ -245,5 +258,6 @@ export function useNotes() {
     closeTab,
     searchNotes,
     rebuildIndex,
+    convertNote,
   };
 }
