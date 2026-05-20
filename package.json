@@ -1,7 +1,7 @@
 {
   "name": "znote",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,17 +16,23 @@
     "@tiptap/core": "^2.11.0",
     "@tiptap/react": "^2.11.0",
     "@tiptap/starter-kit": "^2.11.0",
+    "@types/turndown": "^5.0.6",
+    "katex": "^0.16.47",
     "lucide-react": "^0.400.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.0.0",
+    "rehype-highlight": "^7.0.2",
+    "rehype-katex": "^7.0.1",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.0",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.0",
     "sanitize-html": "^2.13.0",
     "tailwindcss-animate": "^1.0.7",
-    "unified": "^11.0.5",
-    "remark-parse": "^11.0.0",
-    "remark-gfm": "^4.0.0",
-    "remark-rehype": "^11.1.0",
-    "rehype-stringify": "^10.0.1"
+    "turndown": "^7.2.4",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.2.5",

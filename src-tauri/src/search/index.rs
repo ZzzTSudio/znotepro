@@ -12,6 +12,7 @@ const INDEX_DIR_NAME: &str = ".search_index";
 const INDEX_FILE: &str = "index.json";
 const META_FILE: &str = "meta.json";
 const INDEX_VERSION: u32 = 3;
+pub const INDEX_FILE_LIMIT_BYTES: u64 = 10 * 1024 * 1024;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Posting {
@@ -197,6 +198,10 @@ impl SearchIndex {
     }
 
     fn index_file(&mut self, note_dir: &Path, path: &Path) {
+        if file_size(path) > INDEX_FILE_LIMIT_BYTES {
+            return;
+        }
+
         let content = match fs::read_to_string(path) {
             Ok(c) => c,
             Err(_) => return,
@@ -355,6 +360,10 @@ fn file_mtime(path: &Path) -> u64 {
         .and_then(|t| t.duration_since(UNIX_EPOCH).ok())
         .map(|d| d.as_secs())
         .unwrap_or(0)
+}
+
+fn file_size(path: &Path) -> u64 {
+    fs::metadata(path).map(|m| m.len()).unwrap_or(0)
 }
 
 fn normalize_rel_path(path: &Path) -> String {

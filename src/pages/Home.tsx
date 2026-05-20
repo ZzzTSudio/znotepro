@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+﻿import { useCallback, useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { listen } from "@tauri-apps/api/event";
 import { PanelLeft, Search, Settings } from "lucide-react";
 import { useNotes } from "@/hooks/useNotes";
 import Sidebar from "@/components/Sidebar";
@@ -8,10 +9,24 @@ import Editor from "@/components/Editor";
 import SearchPanel from "@/components/SearchPanel";
 import ModelSettingsDialog from "@/components/ModelSettingsDialog";
 import StyleSelectDialog from "@/components/StyleSelectDialog";
-import type { StyleTemplate } from "@/types/note";
+import type { ConvertProgress, StyleTemplate } from "@/types/note";
 
 const APP_NAME = "znote Pro";
-const APP_VERSION = "v1.0.0";
+const APP_VERSION = "v1.0.1";
+const SIDEBAR_WIDTH_KEY = "znote.sidebarWidth";
+const DEFAULT_SIDEBAR_WIDTH = 256;
+const MIN_SIDEBAR_WIDTH = 220;
+const MAX_SIDEBAR_WIDTH = 520;
+
+function clampSidebarWidth(width: number) {
+  return Math.min(MAX_SIDEBAR_WIDTH, Math.max(MIN_SIDEBAR_WIDTH, width));
+}
+
+function getStoredSidebarWidth() {
+  const stored = window.localStorage.getItem(SIDEBAR_WIDTH_KEY);
+  const width = stored ? Number(stored) : DEFAULT_SIDEBAR_WIDTH;
+  return Number.isFinite(width) ? clampSidebarWidth(width) : DEFAULT_SIDEBAR_WIDTH;
+}
 
 export default function Home() {
   const {
@@ -49,6 +64,7 @@ export default function Home() {
   const [styleDialogOpen, setStyleDialogOpen] = useState(false);
   const [selectedStyleId, setSelectedStyleId] = useState("");
   const [pendingConvertPath, setPendingConvertPath] = useState<string | null>(null);
+  const [sidebarWidth, setSidebarWidth] = useState(getStoredSidebarWidth);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -73,6 +89,30 @@ export default function Home() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [activeTab, saveNote, setSidebarVisible, setSearchPanelVisible, createNote]);
+
+  useEffect(() => {
+    let disposed = false;
+    let unlisten: (() => void) | null = null;
+
+    void listen<ConvertProgress>("convert_progress", (event) => {
+      if (disposed) return;
+      const { file_name, current, total, stage } = event.payload;
+      if (stage === "normalizing") {
+        setStatusMessage(`${file_name} 正在规范化：${current}/${total}`);
+      }
+    }).then((cleanup) => {
+      if (disposed) {
+        cleanup();
+      } else {
+        unlisten = cleanup;
+      }
+    });
+
+    return () => {
+      disposed = true;
+      unlisten?.();
+    };
+  }, []);
 
   const handleSearch = useCallback(
     (q: string) => {
@@ -110,12 +150,14 @@ export default function Home() {
       const outputPath = parent ? `${parent}/${outputName}` : outputName;
       const exists = notes.some((note) => !note.is_dir && note.path === outputPath);
       if (!exists) return false;
-      return window.confirm(`${outputName} 已存在。\n\n确定：覆盖现有文件\n取消：生成 -1 副本`);
+      return window.confirm(
+        `${outputName} 已存在。\n\n确定：覆盖现有文件\n取消：生成 -1 副本`,
+      );
     },
     [notes],
   );
 
-  const runConvert = useCallback(
+  const runConvertWithStatus = useCallback(
     async (path: string, styleId: string | null) => {
       const expectedName = targetName(path);
       const overwrite = askOverwrite(path);
@@ -125,7 +167,7 @@ export default function Home() {
         setStatusMessage(`${result.output_name} 转换成功`);
       } catch (error) {
         const message = String(error);
-        if (message.includes("请配置模型")) {
+        if (message.includes("请配置模型") || message.includes("模型配置")) {
           window.alert("请配置模型。");
           setSettingsOpen(true);
           setStatusMessage(`${expectedName} 转换失败：请配置模型`);
@@ -141,7 +183,7 @@ export default function Home() {
     async (path: string) => {
       const ext = extOf(path);
       if (ext === "html" || ext === "htm") {
-        await runConvert(path, null);
+        await runConvertWithStatus(path, null);
         return;
       }
 
@@ -155,7 +197,7 @@ export default function Home() {
         setStatusMessage(`${targetName(path)} 转换失败：${String(error)}`);
       }
     },
-    [runConvert],
+    [runConvertWithStatus],
   );
 
   const confirmStyleConvert = useCallback(() => {
@@ -164,8 +206,13 @@ export default function Home() {
     const styleId = selectedStyleId;
     setStyleDialogOpen(false);
     setPendingConvertPath(null);
-    void runConvert(path, styleId);
-  }, [pendingConvertPath, runConvert, selectedStyleId]);
+    void runConvertWithStatus(path, styleId);
+  }, [pendingConvertPath, runConvertWithStatus, selectedStyleId]);
+  const handleSidebarResize = useCallback((width: number) => {
+    const nextWidth = clampSidebarWidth(width);
+    setSidebarWidth(nextWidth);
+    window.localStorage.setItem(SIDEBAR_WIDTH_KEY, String(nextWidth));
+  }, []);
 
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden select-none bg-white text-[#24292f]">
@@ -205,6 +252,10 @@ export default function Home() {
           <Sidebar
             notes={notes}
             noteDir={noteDir}
+            width={sidebarWidth}
+            minWidth={MIN_SIDEBAR_WIDTH}
+            maxWidth={MAX_SIDEBAR_WIDTH}
+            onResize={handleSidebarResize}
             onRefresh={loadNotes}
             onOpen={openNote}
             onImportFiles={handleImportFiles}
@@ -275,3 +326,5 @@ export default function Home() {
     </div>
   );
 }
+
+

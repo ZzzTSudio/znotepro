@@ -4,9 +4,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC','Songti 
 .hero h1{font-size:32px;font-weight:700;letter-spacing:4px;margin-bottom:8px;color:var(--text);line-height:1.4;text-transform:uppercase;font-family:'Noto Serif SC',serif;}
 .hero-badge{display:none;}
 .hero-desc{color:var(--text2);font-size:14px;max-width:600px;margin:12px auto;line-height:1.8;font-style:italic;}
-.hero-meta{justify-content:center;margin-top:16px;gap:32px;}
-.hero-meta-item{color:var(--text2);font-size:12px;font-family:'Noto Sans SC',sans-serif;}
-.hero-meta-icon{display:none;}
 .content{max-width:800px;margin:0 auto;padding:40px;}
 h2{font-size:22px;font-weight:700;margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--text);display:flex;align-items:center;gap:10px;font-family:'Noto Serif SC',serif;}
 .section-num{width:28px;height:28px;border-radius:0;background:var(--text);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Noto Sans SC',sans-serif;}

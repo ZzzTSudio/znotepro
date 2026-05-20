@@ -10,7 +10,7 @@ use std::sync::{Mutex, OnceLock};
 
 use crate::{MatchContext, SearchResult};
 use extractor::extract_search_text;
-use index::SearchIndex;
+use index::{DocMeta, SearchIndex, INDEX_FILE_LIMIT_BYTES};
 use query::{parse_query, ParsedQuery};
 use scorer::score_documents;
 
@@ -68,25 +68,38 @@ pub fn remove_index_file(_note_dir: &Path, rel_path: &str) -> Result<(), String>
 pub fn perform_search(note_dir: &Path, query_str: &str) -> Result<Vec<SearchResult>, String> {
     ensure_index(note_dir)?;
 
-    let guard = index_cell()
-        .lock()
-        .map_err(|_| "Search index lock poisoned".to_string())?;
-    let idx = match guard.as_ref() {
-        Some(i) => i,
-        None => return Ok(Vec::new()),
-    };
-
     let parsed = parse_query(query_str);
-    let scored = score_documents(idx, &parsed);
-    let mut results = Vec::new();
-
-    for scored_doc in scored {
-        let doc_meta = match idx.documents.get(&scored_doc.doc_id) {
-            Some(m) => m,
-            None => continue,
+    let candidates = {
+        let guard = index_cell()
+            .lock()
+            .map_err(|_| "Search index lock poisoned".to_string())?;
+        let idx = match guard.as_ref() {
+            Some(i) => i,
+            None => return Ok(Vec::new()),
         };
 
-        let file_path = note_dir.join(&doc_meta.path);
+        score_documents(idx, &parsed)
+            .into_iter()
+            .filter_map(|scored_doc| {
+                idx.documents
+                    .get(&scored_doc.doc_id)
+                    .cloned()
+                    .map(|doc_meta| SearchCandidate {
+                        doc_meta,
+                        score: scored_doc.score,
+                        boost_reasons: scored_doc.boost_reasons,
+                    })
+            })
+            .collect::<Vec<_>>()
+    };
+
+    let mut results = Vec::new();
+
+    for candidate in candidates {
+        let file_path = note_dir.join(&candidate.doc_meta.path);
+        if is_too_large_for_context(&file_path) {
+            continue;
+        }
         let content = match fs::read_to_string(&file_path) {
             Ok(c) => c,
             Err(_) => continue,
@@ -98,15 +111,27 @@ pub fn perform_search(note_dir: &Path, query_str: &str) -> Result<Vec<SearchResu
         }
 
         results.push(SearchResult {
-            file: doc_meta.path.clone(),
-            score: scored_doc.score,
-            title: doc_meta.title.clone(),
+            file: candidate.doc_meta.path,
+            score: candidate.score,
+            title: candidate.doc_meta.title,
             matches,
-            boost_reasons: scored_doc.boost_reasons,
+            boost_reasons: candidate.boost_reasons,
         });
     }
 
     Ok(results)
+}
+
+struct SearchCandidate {
+    doc_meta: DocMeta,
+    score: f64,
+    boost_reasons: Vec<String>,
+}
+
+fn is_too_large_for_context(path: &Path) -> bool {
+    fs::metadata(path)
+        .map(|meta| meta.len() > INDEX_FILE_LIMIT_BYTES)
+        .unwrap_or(true)
 }
 
 fn find_line_matches(content: &str, query: &ParsedQuery) -> Vec<MatchContext> {
@@ -159,4 +184,34 @@ fn find_line_matches(content: &str, query: &ParsedQuery) -> Vec<MatchContext> {
     }
 
     matches
+}
+
+#[cfg(test)]
+mod tests {
+    use super::perform_search;
+    use crate::search::index::INDEX_FILE_LIMIT_BYTES;
+    use std::fs;
+
+    #[test]
+    fn search_skips_oversized_context_files() {
+        let note_dir = std::env::temp_dir().join(format!(
+            "znote_search_context_limit_test_{}",
+            std::process::id()
+        ));
+        let _ = fs::remove_dir_all(&note_dir);
+        fs::create_dir_all(&note_dir).unwrap();
+        fs::write(note_dir.join("small.md"), "# title\n\nneedle\n").unwrap();
+        fs::write(
+            note_dir.join("large.md"),
+            vec![b'a'; (INDEX_FILE_LIMIT_BYTES + 1) as usize],
+        )
+        .unwrap();
+
+        let results = perform_search(&note_dir, "needle").unwrap();
+
+        assert_eq!(results.len(), 1);
+        assert_eq!(results[0].file, "small.md");
+
+        let _ = fs::remove_dir_all(&note_dir);
+    }
 }

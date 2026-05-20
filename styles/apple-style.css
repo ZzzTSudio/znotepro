@@ -4,9 +4,6 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .hero h1{font-size:48px;font-weight:700;letter-spacing:-1.5px;margin-bottom:16px;line-height:1.1;color:var(--text);}
 .hero-badge{display:none;}
 .hero-desc{font-size:21px;color:var(--text2);max-width:600px;margin:0 auto;line-height:1.5;}
-.hero-meta{justify-content:center;margin-top:28px;}
-.hero-meta-item{font-size:14px;color:var(--text2);}
-.hero-meta-icon{background:none;width:auto;height:auto;font-size:16px;margin-right:4px;}
 .content{max-width:800px;margin:0 auto;padding:60px 30px;}
 h2{font-size:28px;font-weight:600;margin:48px 0 20px;letter-spacing:-0.5px;border-bottom:none;padding-bottom:0;color:var(--text);}
 .section-num{display:none;}

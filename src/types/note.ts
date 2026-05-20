@@ -48,3 +48,10 @@ export interface ConvertResult {
   output_path: string;
   output_name: string;
 }
+
+export interface ConvertProgress {
+  file_name: string;
+  current: number;
+  total: number;
+  stage: string;
+}

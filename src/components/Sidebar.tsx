@@ -276,6 +276,10 @@ function TreeNode({
 export default function Sidebar({
   notes,
   noteDir,
+  width,
+  minWidth,
+  maxWidth,
+  onResize,
   onRefresh,
   onOpen,
   onImportFiles,
@@ -289,6 +293,10 @@ export default function Sidebar({
 }: {
   notes: NoteInfo[];
   noteDir: string;
+  width: number;
+  minWidth: number;
+  maxWidth: number;
+  onResize: (width: number) => void;
   onRefresh: () => void;
   onOpen: (path: string) => void;
   onImportFiles: (files: File[]) => void | Promise<void>;
@@ -513,6 +521,35 @@ export default function Sidebar({
     return true;
   };
 
+  const beginResize = (event: ReactPointerEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+    setMenu(null);
+    const startX = event.clientX;
+    const startWidth = width;
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+
+    const onPointerMove = (moveEvent: globalThis.PointerEvent) => {
+      moveEvent.preventDefault();
+      const nextWidth = Math.min(maxWidth, Math.max(minWidth, startWidth + moveEvent.clientX - startX));
+      onResize(nextWidth);
+    };
+
+    const finishResize = () => {
+      window.removeEventListener("pointermove", onPointerMove, true);
+      window.removeEventListener("pointerup", finishResize, true);
+      window.removeEventListener("pointercancel", finishResize, true);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+
+    window.addEventListener("pointermove", onPointerMove, true);
+    window.addEventListener("pointerup", finishResize, true);
+    window.addEventListener("pointercancel", finishResize, true);
+  };
+
   const menuItems = useMemo<MenuItem[]>(() => {
     if (!menu) return [];
     if (menu.kind === "blank") {
@@ -548,7 +585,8 @@ export default function Sidebar({
 
   return (
     <div
-      className="znote-sidebar relative w-64 flex flex-col border-r border-[#d8dee4] bg-[#f6f8fa] shrink-0"
+      className="znote-sidebar relative flex flex-col border-r border-[#d8dee4] bg-[#f6f8fa] shrink-0"
+      style={{ width }}
       onDragStartCapture={(event) => event.preventDefault()}
       onContextMenu={(event) => {
         event.preventDefault();
@@ -664,6 +702,12 @@ export default function Sidebar({
           ))}
         </div>
       )}
+      <div
+        className="absolute right-[-3px] top-0 z-20 h-full w-1.5 cursor-col-resize bg-transparent transition hover:bg-[#0969da]/25"
+        title="调整侧边栏宽度"
+        onPointerDown={beginResize}
+        onContextMenu={(event) => event.preventDefault()}
+      />
     </div>
   );
 }

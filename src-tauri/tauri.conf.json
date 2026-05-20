@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "znote Pro",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "identifier": "dev.znote.app",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -29,7 +29,8 @@
     "active": true,
     "targets": ["msi", "nsis"],
     "resources": [
-      "../styles"
+      "../styles",
+      "../md"
     ],
     "icon": [
       "icons/32x32.png",
